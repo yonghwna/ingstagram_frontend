@@ -1,7 +1,22 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
-//handler를 route.ts로 보내서, 들어오는 모든 요청에 대해 실행한다.
+import Google from "next-auth/providers/google";
+import type { Provider } from "next-auth/providers";
 
+//handler를 route.ts로 보내서, 들어오는 모든 요청에 대해 실행한다.
+const providers: Provider[] = [GitHub, Google];
+
+export const providerMap = providers
+  .map((provider) => {
+    if (typeof provider === "function") {
+      const providerData = provider();
+      return { id: providerData.id, name: providerData.name };
+    } else {
+      return { id: provider.id, name: provider.name };
+    }
+  })
+  .filter((provider) => provider.id !== "credentials");
+//이전 버전이랑 바뀐게, 자동으로 .env를 읽어온다.
 export const {
   handlers,
   signIn,
@@ -9,7 +24,7 @@ export const {
   auth,
   unstable_update: update,
 } = NextAuth({
-  providers: [GitHub],
+  providers,
   //세션전략은 jwt를 사용하고, 세션을 만료시간을 24시간으로 설정
   session: {
     strategy: "jwt", // JSON Web Token 사용

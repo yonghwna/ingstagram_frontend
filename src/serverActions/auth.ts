@@ -15,13 +15,12 @@ export const signInWithGoogle = async () => {
   });
   // ...
 };
-export const signInWithGitHub = async () => {
-  await signIn("github", {
-    /* 옵션 */
-  });
+export const goToSignInPage = async () => {
+  await signIn();
   // ...
 };
 export const logOut = async () => {
   await signOut();
 };
+
 export { auth as getSession, update as updateSession };
