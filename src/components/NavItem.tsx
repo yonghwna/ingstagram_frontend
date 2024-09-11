@@ -8,7 +8,7 @@ import SearchIcon from "./ui/icons/SearchIcon";
 import NewIcon from "./ui/icons/NewIcon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { logOut, goToSignInPage } from "@/serverActions/auth";
+import { logOut, login, signInWithGoogle } from "@/serverActions/auth";
 import ColorButton from "@/components/ui/ColorButton";
 import { Session } from "@auth/core/types";
 const menu = [
@@ -36,7 +36,7 @@ export default function NavItem({ session }: props) {
       {session ? (
         <ColorButton onClick={() => logOut()} text="sign Out" />
       ) : (
-        <ColorButton onClick={() => goToSignInPage()} text="sign In" />
+        <ColorButton onClick={() => login()} text="sign In" />
       )}
     </>
   );

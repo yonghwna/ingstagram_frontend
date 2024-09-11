@@ -24,16 +24,17 @@ export const {
   auth,
   unstable_update: update,
 } = NextAuth({
-  providers,
+  providers: [Google, GitHub],
   //세션전략은 jwt를 사용하고, 세션을 만료시간을 24시간으로 설정
   session: {
     strategy: "jwt", // JSON Web Token 사용
     maxAge: 60 * 60 * 24, // 세션 만료 시간(sec)
   },
   //로그인 페이지 설정
-  pages: {
-    signIn: "/signin", // Default: '/auth/signin'
-  },
+  // pages: {
+  //   signIn: "/signin",
+  //   // Default: '/auth/signin'
+  // },
   //인증 관련 이벤트에 대한 콜백 함수
   //signIn 할 때 호출, jwt생성할 때 호출, 세션 생성할 때 호출, 리다이렉트 할 때 호출
   //redirect는 인증 후 리디렉션 처리하는 콜백

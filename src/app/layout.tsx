@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { SessionProvider } from "@/components/providers/session";
 /**기본적인 폰트, 골격, seo관련 등 애플리케이션 전반적으로
  * 사용하는건 layout에.
  */
@@ -21,11 +22,12 @@ export default function RootLayout({
     <html lang="ko" className={open_Sans.className}>
       {/* 최대너비 지정하고 넘치는거 오토, 가운데 정렬 */}
       <body className=" w-full max-w-screen-xl overflow-auto mx-auto">
-        {/* Semantic tag똑띠해라 */}
-        <header className=" sticky top-0 bg-white z-10 border-b ">
-          <Navbar />
-        </header>
-        <main>{children}</main>
+        <SessionProvider>
+          <header className=" sticky top-0 bg-white z-10 border-b ">
+            <Navbar />
+          </header>
+          <main>{children}</main>
+        </SessionProvider>
       </body>
     </html>
   );
