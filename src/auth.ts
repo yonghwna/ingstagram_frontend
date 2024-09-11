@@ -31,10 +31,10 @@ export const {
     maxAge: 60 * 60 * 24, // 세션 만료 시간(sec)
   },
   //로그인 페이지 설정
-  // pages: {
-  //   signIn: "/signin",
-  //   // Default: '/auth/signin'
-  // },
+  pages: {
+    signIn: "/login",
+    // Default: '/auth/signin'
+  },
   //인증 관련 이벤트에 대한 콜백 함수
   //signIn 할 때 호출, jwt생성할 때 호출, 세션 생성할 때 호출, 리다이렉트 할 때 호출
   //redirect는 인증 후 리디렉션 처리하는 콜백
@@ -47,10 +47,13 @@ export const {
       //if (user) token = { ...token, id: user.id }; 이건 언젠가...
       return token;
     },
+    //세션을 만들 때 호출
     session: async ({ session, token }) => {
       return session;
     },
+    //리디렉션 할 때 호출. 현재 url과 baseUrl을 받아서 리디렉션할 url을 반환.
     redirect: async ({ url, baseUrl }) => {
+      console.log({ url, baseUrl });
       if (url.startsWith("/")) return `${baseUrl}${url}`;
       if (url) {
         const { search, origin } = new URL(url);
